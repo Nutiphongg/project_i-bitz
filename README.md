@@ -1,5 +1,18 @@
-วิธีรัน frontend: 1. cd frontend -> bun install
-               2. create file name: .env.local at frontend/
-                  code:
-                    NEXT_PUBLIC_SUPABASE_URL=
-                    NEXT_PUBLIC_SUPABASE_ANON_KEY=
+### วิธีรันโปรเจกต์ (Frontend)
+
+1. เข้าไปที่โฟลเดอร์ frontend และติดตั้ง Library:
+```bash
+cd frontend
+bun install
+```
+
+2. สร้างไฟล์ `.env.local` ไว้ที่ `frontend/` และใส่ค่าดังนี้:
+```text
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+```
+
+3. เริ่มรันโปรเจกต์:
+```bash
+bun dev
+```
