@@ -1,1 +1,1 @@
-วิธีรัน frontend cd frontend && bun dev
+วิธีรัน frontend: cd frontend -> bun install -> bun dev
