@@ -6,7 +6,7 @@ cd frontend
 bun install
 ```
 
-2. สร้างไฟล์ `.env.local` ไว้ที่ `frontend/` และใส่ค่าดังนี้:
+2. สร้างไฟล์ `.env.local` ไว้ที่ `frontend/` และใส่โค้ด:
 ```text
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
