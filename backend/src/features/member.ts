@@ -17,8 +17,18 @@ export const memberRoutes = new Elysia({prefix: '/api/members'})
 // API ดึงข้อมูลสมาชิกทั้งหมด
 .get("/", async () => {
     const members = await prisma.member.findMany({
-        include: {
-            membership_level: true // ดึงข้อมูลส่วนลด level การซื้อสินค้า
+        select: {
+            member_id : true,
+            username  : true,
+            email     : true,
+            status    : true,
+
+            membership_level: {
+               select:{
+                level_name  :true,
+                discount_rate :true,
+               }
+            } // ดึงข้อมูลส่วนลด level การซื้อสินค้า
         }
     });
     return members;

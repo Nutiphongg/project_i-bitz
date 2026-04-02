@@ -17,8 +17,17 @@ export const productRoutes = new Elysia({ prefix: '/api/products' })
   // API ดึงข้อมูลสินค้าทั้งหมด
   .get("/", async () => {
     const products = await prisma.product.findMany({
-      include: {
-        categories: true // ดึงชื่อหมวดหมู่มาด้วย
+      select: {
+        product_id     : true,
+        product_name   : true,
+        price_day      : true,
+        deposit_amount : true,
+        category_id    : true, 
+        categories:{
+            select:{
+                category_name : true,
+            }
+        }// ดึงชื่อหมวดหมู่มาด้วย
       }
     });
     return products;

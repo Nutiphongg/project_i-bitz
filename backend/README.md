@@ -26,4 +26,4 @@ Open http://localhost:3000/ with your browser to see the result.
 
  ตัวของ api docs
   http://localhost:3000/api_docs
- 
+  
