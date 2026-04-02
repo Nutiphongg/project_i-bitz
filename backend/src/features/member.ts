@@ -53,3 +53,32 @@ export const memberRoutes = new Elysia({prefix: '/api/members'})
         summary: 'ค้นหาลูกค้าจากไอดี'
     }
 })
+
+ .post("/", async ({ body }) => { 
+    // เพิ่มข้อมูลลงใน Database ผ่าน prisma
+    const newMember = await prisma.member.create({
+        data : {
+            username:body.username,
+            email : body.email,
+            password: body.password,
+            role: "user",
+            membership_level_id: 1
+
+        }
+    });
+    return {
+        status: "success",
+        message: "สร้างสมาชิกใหม่สำเร็จ",
+        member_id: newMember.member_id
+    };
+ },{
+    body: t.Object({
+        username: t.String({description: 'ชื่อผู้ใช้'}),
+        email : t.String({ description: 'อีเมล'}),
+        password: t.String({description:'รหัส'})
+    }),
+    detail:{
+        tags: ['Member'],
+        summary: 'สร้างสมาชิกใหม่ (สมัครสมาชิก)'
+    }
+   })
