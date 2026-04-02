@@ -1,3 +1,13 @@
+### Tech Stack ที่ใช้
+```text
+Framework: Next.js
+Language: TypeScript
+Database: Supabase
+Styling: Tailwind CSS
+UI Component: Shadcn UI
+Package: Bun
+```
+
 ### วิธีรันโปรเจกต์ (Frontend)
 
 1. เข้าไปที่โฟลเดอร์ frontend และติดตั้ง Library:
