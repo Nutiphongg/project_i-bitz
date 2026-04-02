@@ -6,7 +6,7 @@ import { Pool } from "pg";
 // 1. ดึง URL จากไฟล์ .env
 const connectionString = process.env.DATABASE_URL;
 
-// 2. สร้าง Connection Pool และ Adapter (ระบบใหม่ของ Prisma 7)
+// 2. สร้าง Connection Pool และ Adapter 
 const pool = new Pool({ connectionString });
 const adapter = new PrismaPg(pool);
 
