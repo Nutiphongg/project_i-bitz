@@ -28,7 +28,7 @@ export const memberRoutes = new Elysia({prefix: '/api/members'})
                 level_name  :true,
                 discount_rate :true,
                }
-            } // ดึงข้อมูลส่วนลด level การซื้อสินค้า
+            } // ดึงข้อมูลส่วนลดการซื้อสินค้า
         }
     });
     return members;
@@ -82,3 +82,35 @@ export const memberRoutes = new Elysia({prefix: '/api/members'})
         summary: 'สร้างสมาชิกใหม่ (สมัครสมาชิก)'
     }
    })
+
+   .delete("/:id",async ({ params, set }) => {
+     try{
+        // ใช้ Prisma สั่งลบข้อมูลตาม ID 
+        await prisma.member.delete({
+           where: {
+             member_id: Number(params.id)
+           }
+        });
+
+        return {
+            status:"success",
+            message: 'ลบข้อมูลลูกค้ารหัส ${params.id}'
+        };
+     } catch (error) {
+        //ดัก ID ที่ไม่มีหรือ ID ซ้ำ
+        set.status = 404;
+        return {
+            status:"error",
+            message: 'ไม่พบข้อมูลลูกค้ารหัส ${params.id} ในระบบ'
+        };
+     }
+   },{
+    params: t.Object({
+        id:t.String({description: 'รหัสลูกค้า (ID) ที่ต้องการลบ'})
+    }),
+    detail:{
+        tags:['Members'],
+        summary:'ลบข้อมูลูกค้าออกจากระบบ'
+    }
+   })
+ 
