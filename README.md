@@ -6,6 +6,11 @@ Database: Supabase
 Styling: Tailwind CSS
 UI Component: Shadcn UI
 Package: Bun
+backend
+framework api: Elysiajs
+ORM: Prisma
+API Docs: Swagger
+
 ```
 
 ### วิธีรันโปรเจกต์ (Frontend)
@@ -26,3 +31,24 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=
 ```bash
 bun dev
 ```
+
+### วิธีรันโปรเจค(backend)
+1. เข้าที่ folder backend  พร้อมสร้างไฟล์ .env
+```bash
+cd backend
+```
+```text
+DATABASE_URL="ใส่ URL ของ Supabase ที่มีรหัสผ่าน"
+```
+2. ติดตั้งเครื่องมือ
+``` bash
+bun install
+```
+3. อัปเดต prisma generate 
+```bash
+bunx prisma generate
+```
+4.รันเซิร์ฟเวอร์ backend 
+```bash
+bun run --watch src/index.ts
+
