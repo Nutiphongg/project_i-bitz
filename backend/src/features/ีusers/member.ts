@@ -1,61 +1,9 @@
 import { Elysia } from "elysia";
-import { PrismaClient, Prisma } from "@prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
+import {  prisma } from "../../setup/db";
 import { CreateMemberSchema, MemberIdParamSchema, UpdateMemberSchema } from "./member.schema";
 
-// 1. ดึง URL จากไฟล์ .env
-const connectionString = process.env.DATABASE_URL;
-// 2. สร้าง Connection Pool และ Adapter
-const pool = new Pool({ connectionString });
-const adapter = new PrismaPg(pool);
-// 3. ใส่ Adapter เข้าไปตอนสร้าง PrismaClient
-const prisma = new PrismaClient({ adapter });
 
 export const memberRoutes = new Elysia({ prefix: '/api/members' })
-    
-    //  Global Error Handler 
-    .onError(({ code, error, set }) => {
-        // กรณี Validate ไม่ผ่าน 
-        if (code === 'VALIDATION') {
-            set.status = 400;
-            return {
-                status: "error",
-                message: "ข้อมูลที่ส่งมาไม่ถูกต้องตามรูปแบบ",
-                details: error.all 
-            };
-        }
-
-        // กรณี Error จาก Prisma (Database)
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-            // P2025 = หาข้อมูลไม่เจอ ช่น ลบ อัปเดต ID ที่ไม่มี
-            if (error.code === 'P2025') {
-                set.status = 404;
-                return {
-                    status: "error",
-                    message: "ไม่พบข้อมูลที่ต้องการดำเนินการในระบบ"
-                };
-            }
-            // P2002 = ข้อมูลซ้ำ (เช่น Email ซ้ำ)
-            if (error.code === 'P2002') {
-                set.status = 409; 
-                return {
-                    status: "error",
-                    message: "ไม่สามารถบันทึกได้ เนื่องจากข้อมูลนี้มีซ้ำในระบบแล้ว"
-                };
-            }
-        }
-
-        // กรณี Error อื่นๆ  
-        console.error(error); // ปริ้นลง Console เพื่อให้เราตรวจสอบได้
-        set.status = 500;
-        return {
-            status: "error",
-            message: "เกิดข้อผิดพลาดภายในเซิร์ฟเวอร์ กรุณาลองใหม่อีกครั้ง"
-        };
-    })
-
- 
 
     // [GET] ดึงข้อมูลสมาชิกทั้งหมด
     .get("/", async () => {
