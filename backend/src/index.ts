@@ -2,7 +2,7 @@ import { Elysia } from "elysia";
 import { swagger } from "@elysiajs/swagger";
 import {cors} from "@elysiajs/cors";
 import { productRoutes } from "./features/product";
-import { memberRoutes } from "./features/member";
+import { memberRoutes } from "./features/ีusers/member";
 
 const app = new Elysia()
   // 1. เปิดใช้งาน Swagger สำหรับทำ API Docs ให้ฝั่ง Frontend ดึงไปดู
